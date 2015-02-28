@@ -1,0 +1,35 @@
+{
+    "name": "skullyframework/skully-amazon-s3",
+    "type": "package",
+    "description": "Amazon S3 Integration with Skully Framework. Can be used with Skully Admin.",
+    "authors": [
+        {
+            "name": "Jay",
+            "email": "jay@tgitriodesign.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "3.7.28",
+        "phpunit/phpunit-selenium": ">=1.2",
+        "phpunit/dbunit": ">=1.2",
+        "mikey179/vfsStream": "v1.2.0"
+    },
+    "require": {
+        "php": ">=5.4",
+        "symfony/console": "2.5.2",
+        "skullyframework/skully": "0.1.*",
+        "aws/aws-sdk-php": "2.6.*",
+        "skullyframework/skully-admin": "0.1.*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {
+            "SkullyAwsS3": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "TestApp\\": "Tests/app"
+        }
+    }
+}

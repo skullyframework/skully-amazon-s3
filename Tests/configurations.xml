@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+    <testsuites>
+        <testsuite name="App_Tests">
+            <file>AmazonS3/S3Test.php</file>
+            <file>AmazonS3/S3ConsoleTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
