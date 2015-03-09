@@ -1,9 +1,8 @@
 <?php
 
-namespace SkullyAwsS3\Core;
+namespace SkullyAwsS3\Skully\Core;
 use Skully\Core\Theme\Theme;
 use Skully\Core\Theme\ThemeInterface;
-use Skully\Exceptions\ThemeFileNotFoundException;
 
 class S3Theme extends Theme implements ThemeInterface {
     protected $publicDirectory;

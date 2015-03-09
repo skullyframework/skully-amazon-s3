@@ -1,5 +1,6 @@
+public/images/Image/*
+logs/*
+
 config/AmazonS3/*
 !config/AmazonS3/README.txt
-public/images/Image/*
 .git-s3
-logs/*
