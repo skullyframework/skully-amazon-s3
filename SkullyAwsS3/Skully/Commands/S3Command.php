@@ -95,7 +95,7 @@ EOT
                         break;
                 }
                 break;
-            case 'setup':
+            case 'setup:git':
                 if (file_exists($gitdir)) {
                     echo "Warning: Git directory $gitdir already exists, delete it and setup a new one? (Y/N): ";
                     if ($force) {
@@ -119,12 +119,13 @@ EOT
                 echo "$initCommand\n";
                 shell_exec($initCommand);
                 $s3Config = $this->app->config('amazonS3');
-                $s3ConfigFile = $this->app->config('basePath').'config'.DIRECTORY_SEPARATOR.'AmazonS3'.DIRECTORY_SEPARATOR.'.s3conf';
-                $s3ConfigText = 'accesskey: '. $s3Config['setting']['key'] . "\n" .
-                'secretkey: ' . $s3Config['setting']['secret'] . "\n" .
+                print_r($s3Config);
+                $s3ConfigFile = $this->app->config('basePath').'.s3conf';
+                $s3ConfigText = 'accesskey: '. $s3Config['settings']['key'] . "\n" .
+                'secretkey: ' . $s3Config['settings']['secret'] . "\n" .
                 'acl: public';
                 file_put_contents($s3ConfigFile, $s3ConfigText);
-                $addRemoteCommand = 'git --git-dir="'.$gitdir.'" remote add origin amazon-s3://"'.$s3ConfigFile.'"@'.$s3Config['bucket'].'/'.$remotegitname;
+                $addRemoteCommand = 'git --git-dir="'.$gitdir.'" remote add origin amazon-s3://.s3conf@'.$s3Config['bucket'].'/'.$remotegitname;
                 echo $addRemoteCommand."\n";
                 shell_exec($addRemoteCommand);
                 break;

@@ -11,7 +11,7 @@ use \Skully\App\Helpers\FileHelper;
 use \SkullyAwsS3\Skully\Commands\S3Command;
 
 class S3ConsoleTest extends \Tests\AdminTestCase {
-    public function testSetup()
+    public function testSetupGit()
     {
         $app = __setupApp();
         $console = new Console($app, true);
@@ -26,7 +26,7 @@ class S3ConsoleTest extends \Tests\AdminTestCase {
             return get_class($item);
         }
         print_r(array_map('className', $commands));
-        $output = $console->run("skully:s3 setup -f");
+        $output = $console->run("skully:s3 setup:git -f");
         echo $output->fetch();
         FileHelper::removeFolder($gitpath);
         $this->assertFalse(file_exists($gitpath));
@@ -54,7 +54,7 @@ class S3ConsoleTest extends \Tests\AdminTestCase {
         $this->assertEquals($expected, $command->jgitCommand('pull origin master'));
     }
 
-    public function testCreateNewFile()
+    public function testCreateNewFile1()
     {
         $app = __setupApp();
         $console = new Console($app, true);
@@ -69,6 +69,14 @@ class S3ConsoleTest extends \Tests\AdminTestCase {
         $output = $console->run('skully:s3 "git push origin master"');
         echo $output->fetch();
 
+        $this->assertTrue(true);
+    }
+
+    public function testCreateNewFile2()
+    {
+        $app = __setupApp();
+        $console = new Console($app, true);
+        $console->addCommands($app->config('additionalCommands'));
         /**
          * @var SkullyAwsS3\S3Client $s3client
          * @var SkullyAwsS3\S3ApplicationTrait $app
@@ -77,9 +85,6 @@ class S3ConsoleTest extends \Tests\AdminTestCase {
 
         $this->assertTrue($s3client->isObject('text.txt'));
         $this->assertFalse($s3client->isObject('TestApp/appfile.txt'));
-
-
-        // Check if files within App directory were not pushed to repository.
     }
 
     public function testUpdateFile()

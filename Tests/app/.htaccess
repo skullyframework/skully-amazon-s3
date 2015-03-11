@@ -1,4 +1,4 @@
-RewriteBase /skully-admin/Tests/app
+RewriteBase /skully-amazon-s3/Tests/app
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

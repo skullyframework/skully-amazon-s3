@@ -4,3 +4,4 @@ logs/*
 config/AmazonS3/*
 !config/AmazonS3/README.txt
 .git-s3
+.s3conf

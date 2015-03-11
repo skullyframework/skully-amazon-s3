@@ -55,6 +55,7 @@ Copy the directory `yourapp/vendor/skully-amazon-s3/Tests/app/config/AmazonS3` a
 config/AmazonS3/*
 !config/AmazonS3/README.txt
 .git-s3
+.s3conf
 ```
 
 Login to your Amazon S3 account, then download your access credentials. It is usually named `credentials.csv`. Copy this file to `yourapp/config/amazonS3` directory so it can be used by your config file.
