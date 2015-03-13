@@ -70,51 +70,25 @@ At this stage both feature #1 and #2 mentioned earlier should have implemented w
 
 You can actually start working with Amazon S3 now by manually sending all your files in public directory to your Amazon S3 repository, except for public/[template]/App directory. If you need a better workflow, though (and you should!), you can install the **Console Application** for this module, which basically allows you to treat your Amazon S3 repository as Git repository.
 
-You could then simply do `./console skully:s3 git (add / commit / push)` to send the files to your server, along with other git commands.
+You could then simply do `./console skully:s3 sync` to synchronise the files to your server.
+
+This console app uses s3cmd application, so you may also use any of its commands by calling `./console skully:s3 "s3cmd [arguments]"`.
+
+s3cmd references:
+
+1. Simple commands: [http://s3tools.org/s3cmd-howto](http://s3tools.org/s3cmd-howto)
+2. Advanced commands: [http://s3tools.org/s3cmd-sync](http://s3tools.org/s3cmd-sync)
 
 ### Installation of console application
 
-First, you need to make sure JDK (Java Development Kit) is installed. JDK is used by [jgit.sh](https://github.com/eclipse/jgit), the application we use to manage git repository in Amazon S3.
-
-#### JDK Installation for Windows / Mac OS X:
-
-Review installation from http://www.oracle.com/technetwork/java/javase/downloads/index.html
-
-#### JDK Installation for Linux with Apt-Get:
-
-```
-sudo apt-get install default-jre
-sudo apt-get install default-jdk
-```
+S3cmd used by this module requires Python 2.6 (or newer). S3cmd is not compatible with Python 3.x.
 
 ### Usage of console application
 
-Following commands are to be executed from your project's main directory via terminal:
-
-**Setup your local git repository**
-
-You'd only need to do this once in **each of your development machine**, so if you work on two computers for one project, you need to do this in both of your computers:
+Simply run this command to synchronise with server:
 
 ```
-./console skully:s3 setup
-```
-
-**Add, commit, and push the files you created in your public directory**
-
-Do this anytime you make an update to your public directory.
-
-```
-./console skully:s3 git add --all
-./console skully:s3 git commit -a -m "Note about the update."
-./console skully:s3 git push origin master
-```
-
-**Pull updates from your S3 repository**
-
-Do this anytime you need to get latest update from your repository.
-
-```
-./console skully:s3 git pull origin master
+./console skully:s3 sync
 ```
 
 ## Example
