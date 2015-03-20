@@ -28,7 +28,8 @@ Trait ImageUploader {
         $client->putObject(array(
             'Bucket'     => $amazonS3Config['bucket'],
             'Key'        => $key,
-            'SourceFile' => $abspath
+            'SourceFile' => $abspath,
+            'ACL'        => 'public-read'
         ));
 
         $client->waitUntil('ObjectExists', array(

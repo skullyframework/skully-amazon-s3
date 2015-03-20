@@ -110,8 +110,26 @@ class S3Test extends \Tests\AdminTestCase {
             'Bucket' => $amazonS3Config['bucket'],
             'Key'    => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->smartphone)
         ));
-
         $this->assertNotEmpty($result['Body']);
+//        $this->app->getLogger()->log("result get object : " . print_r($result, true));
+
+        // TEST ACL
+        $resultAcl = $client->getObjectAcl(array(
+            'Bucket' => $amazonS3Config['bucket'],
+            'Key'    => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->smartphone)
+        ));
+//        $this->app->getLogger()->log("result get object ACL : " . print_r($resultAcl, true));
+        $this->assertNotEmpty($resultAcl["Grants"]);
+        $dataAcl = array();
+        foreach (\Aws\S3\Model\Acp::fromArray($resultAcl->toArray()) as $grant) {
+            $grantee = $grant->getGrantee();
+            $dataAcl[$grantee->getGroupUri()] = array($grantee->getType(), $grant->getPermission());
+        }
+
+        $this->assertEquals(2, count($dataAcl));
+        $this->assertArrayHasKey('http://acs.amazonaws.com/groups/global/AllUsers', $dataAcl);
+        $this->assertEquals(array('Group', 'READ'), $dataAcl['http://acs.amazonaws.com/groups/global/AllUsers']);
+        // ---- end of test ACL ----
 
         // Local file must have been deleted.
         $filepath = \Skully\App\Helpers\FileHelper::replaceSeparators($this->app->getTheme()->getBasePath().$data[0]->smartphone);
