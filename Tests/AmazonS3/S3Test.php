@@ -137,16 +137,24 @@ class S3Test extends \Tests\AdminTestCase {
         $this->assertFalse(file_exists($filepath));
         echo "\nYep";
 
-        // Cleanup by removing files in bucket.
-        $client->deleteObject(array(
-            'Bucket' => $amazonS3Config['bucket'],
-            'Key' => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->smartphone))
-        );
+        // Delete Models
+        try{
+            R::trash($imageBean);
+        }
+        catch(\Exception $e){
+            echo 'failed to delete image bean. reason: ' . $e->getMessage();
+        }
 
-        $client->deleteObject(array(
-            'Bucket' => $amazonS3Config['bucket'],
-            'Key' => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->desktop))
-        );
+//        // Cleanup by removing files in bucket.
+//        $client->deleteObject(array(
+//            'Bucket' => $amazonS3Config['bucket'],
+//            'Key' => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->smartphone))
+//        );
+//
+//        $client->deleteObject(array(
+//            'Bucket' => $amazonS3Config['bucket'],
+//            'Key' => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->desktop))
+//        );
 
         // Check existence of deleted files on s3 server
         $result = $client->doesObjectExist(

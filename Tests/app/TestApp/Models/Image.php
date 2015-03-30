@@ -10,7 +10,8 @@ namespace TestApp\Models;
 
 
 use Skully\App\Models\BaseModel;
-use Skully\App\Models\Traits\HasImages;
+//use Skully\App\Models\Traits\HasImages;
+use SkullyAwsS3\Skully\Models\Traits\HasImages;
 
 class Image extends BaseModel {
     use HasImages;
