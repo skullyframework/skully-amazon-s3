@@ -23,4 +23,8 @@ Trait ImageUploaderCRUD {
     function processTempImage($tmp, $options, $oldFile = '') {
         return $this->S3ProcessTempImage($tmp, $options, $oldFile);
     }
+
+    function processDestroyImage($instance, $imageSetting, $imageField, $position) {
+        $this->S3ProcessDestroyImage($instance, $imageSetting, $imageField, $position);
+    }
 }

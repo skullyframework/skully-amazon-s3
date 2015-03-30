@@ -148,5 +148,17 @@ class S3Test extends \Tests\AdminTestCase {
             'Key' => SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->desktop))
         );
 
+        // Check existence of deleted files on s3 server
+        $result = $client->doesObjectExist(
+            $amazonS3Config['bucket'],
+            SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->smartphone)
+        );
+        $this->assertFalse($result);
+
+        $result = $client->doesObjectExist(
+            $amazonS3Config['bucket'],
+            SkullyAwsS3\Helpers\S3Helpers::key($this->app->config('publicDir'), $data[0]->desktop)
+        );
+        $this->assertFalse($result);
     }
 }
