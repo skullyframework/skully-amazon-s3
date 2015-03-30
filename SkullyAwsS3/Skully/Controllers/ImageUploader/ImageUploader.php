@@ -11,6 +11,7 @@ namespace SkullyAwsS3\Skully\Controllers\ImageUploader;
 use Aws\S3\S3Client;
 use Skully\App\Helpers\FileHelper;
 use SkullyAwsS3\Helpers\S3Helpers;
+use RedBeanPHP\Facade as R;
 
 /**
  * Class ImageUploader
