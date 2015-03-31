@@ -39,6 +39,17 @@ Trait ImageUploader {
         ));
 
         unlink($abspath);
+
+        // Delete Old File
+        if(!empty($oldFile)){
+            $relativeOldFile = str_replace($this->app->getTheme()->getPublicBasePath(), '', $oldFile);
+            $oldKey = S3Helpers::key($this->app->config('publicDir'), $relativeOldFile);
+            $client->deleteObject(array(
+                'Bucket' => $amazonS3Config['bucket'],
+                'Key'    => $oldKey
+            ));
+        }
+        
         return $path;
     }
 
